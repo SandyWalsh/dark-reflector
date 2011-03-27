@@ -1,0 +1,8 @@
+dark-reflector is a JSONP REST Server for accessing ticketing systems behind a firewall.
+
+Requirements:
++ Flask
++ pyactiveresource (if you're using redmine)
+
+If you are accessing a redmine system, you should copy config.py.sample to config.py
+and set the appropriate url, username and password.
