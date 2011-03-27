@@ -23,9 +23,12 @@ app = Flask(__name__)
 use_redmine = False
 try:
     import config
-    use_redmine = True
+    app.debug = config.debug
+    use_redmine = config.use_redmine
 except ImportError, e:
     pass
+
+# Big Todo: Wrap the results in JSONP callback format.
 
 if use_redmine:
     class Issue(AR.ActiveResource):
@@ -42,9 +45,8 @@ if use_redmine:
 @app.route('/launchpad/<int:ticket_id>')
 def launchpadticket(ticket_id=None):
     launchpad = LP.login_anonymously("dark-reflector", "production")
-    return launchpad.bugs[1].title
+    return launchpad.bugs[ticket_id].title
 
 
 if __name__ == '__main__':
-    app.debug = True
     app.run()
